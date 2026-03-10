@@ -13,9 +13,17 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 import os
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://postgres:postgres@localhost:5432/mysite',
+        conn_max_age=600
+    )
+}
 
 
 # Quick-start development settings - unsuitable for production
@@ -122,6 +130,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 CORS_ALLOW_ALL_ORIGINS = True #react ile backendin iletişim kurabilmesi için gerekli
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 #MEDİA AYARLARI
 MEDIA_URL = 'media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') #medya dosyalarının kaydedileceği yer
