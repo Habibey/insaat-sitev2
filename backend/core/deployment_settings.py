@@ -3,14 +3,14 @@ import dj_database_url
 from .settings import *
 
 ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
-csrf_trusted_origins = ["https://" + os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
+CSRF_TRUSTED_ORIGINS = ["https://" + os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
 DEBUG = False
 SECRET_KEY = os.environ.get('SECRET_KEY')   
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',#cross-origin resource sharing için gerekli
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhitesnoiseMiddleware', #whitenoise
+    'whitenoise.middleware.WhiteNoiseMiddleware', #whitenoise 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
