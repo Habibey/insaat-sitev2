@@ -19,10 +19,14 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'insaat-db',         # pgAdmin'de oluşturduğun veritabanı adı
+        'USER': 'postgres',          # pgAdmin ana kullanıcı adın
+        'PASSWORD': 'postgres123',  # pgAdmin'e girerken kullandığın şifre
+        'HOST': '127.0.0.1',         # Yerel sunucu adresin (localhost)
+        'PORT': '5432',              # PostgreSQL varsayılan portu
+    }
 }
 
 
@@ -85,13 +89,6 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 
 # Password validation

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .utils import generate_dome_geometry, grpdet # Eski kod
+from .utils import compute_beam_analysis, generate_dome_geometry, grpdet ,steiner,calc_I,calc_T,calc_L,calc_U ,CATEGORIES, to_si, from_si, get_all_conversions # Eski kod
 from .models import AkademikPersonel
 from .serializers import  AkademikPersonelSerializer
 import traceback
@@ -88,5 +88,92 @@ def ekip_listesi(request):
     # Verileri JSON formatına çevir (many=True çünkü birden fazla kişi olabilir)
     serializer = AkademikPersonelSerializer(personeller, many=True)
     return Response(serializer.data)
+
+@api_view(['POST'])
+def calculate_beam(request):
+    try:
+        data = request.data
+        L = float(data.get('L', 6.0))
+        loads = data.get('loads', [])
+        
+        x, V, M, RA, RB, total_F = compute_beam_analysis(L, loads)
+        
+        # Kritik noktaları bul
+        idx_vmax, idx_vmin = np.argmax(V), np.argmin(V)
+        idx_mmax = np.argmax(np.abs(M))
+
+        return Response({
+            "status": "success",
+            "L": L,
+            "RA": round(RA, 3),
+            "RB": round(RB, 3),
+            "total_F": round(total_F, 3),
+            "max_values": {
+                "V_max": {"val": round(float(V[idx_vmax]), 3), "x": round(float(x[idx_vmax]), 3)},
+                "V_min": {"val": round(float(V[idx_vmin]), 3), "x": round(float(x[idx_vmin]), 3)},
+                "M_max": {"val": round(float(M[idx_mmax]), 3), "x": round(float(x[idx_mmax]), 3)},
+            },
+            "arrays": {
+                "x": np.round(x, 3).tolist(),
+                "V": np.round(V, 3).tolist(),
+                "M": np.round(M, 3).tolist()
+            }
+        })
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return Response({"status": "error", "message": str(e)}, status=400)
+    
+@api_view(['POST'])
+def calculate_composite(request):
+    try:
+        data = request.data
+        section_type = data.get('section', 'I')
+        
+        if section_type == 'I':
+            res = calc_I(float(data.get('bf', 200)), float(data.get('tf', 15)), float(data.get('hw', 200)), float(data.get('tw', 10)))
+        elif section_type == 'T':
+            res = calc_T(float(data.get('bf', 150)), float(data.get('tf', 15)), float(data.get('hw', 180)), float(data.get('tw', 10)))
+        elif section_type == 'L':
+            res = calc_L(float(data.get('b', 120)), float(data.get('h', 120)), float(data.get('t1', 12)), float(data.get('t2', 12)))
+        elif section_type == 'U':
+            res = calc_U(float(data.get('bf', 150)), float(data.get('tf', 12)), float(data.get('hw', 150)), float(data.get('tw', 10)))
+        else:
+            return Response({"status": "error", "message": "Geçersiz kesit"}, status=400)
+            
+        return Response({"status": "success", "data": res})
+    except Exception as e:
+        return Response({"status": "error", "message": str(e)}, status=400)    
+# backend/api/views.py içine eklenecek
+from .utils import CATEGORIES, to_si, from_si, get_all_conversions
+
+@api_view(['POST', 'GET'])
+def unit_converter(request):
+    # GET isteği gelirse React'e kategorileri ve birimleri gönder (Dropdown'lar için)
+    if request.method == 'GET':
+        cats = {k: {"tr": v["tr"], "en": v["en"], "units": list(v["units"].keys())} for k, v in CATEGORIES.items()}
+        return Response({"status": "success", "categories": cats})
+    
+    # POST isteği gelirse çeviri hesaplamasını yap
+    try:
+        data = request.data
+        cat = data.get('category', 'length')
+        val = float(data.get('value', 1.0))
+        from_u = data.get('from_unit', 'm')
+        to_u = data.get('to_unit', 'cm')
+
+        si_val = to_si(val, from_u, cat)
+        res_val = from_si(si_val, to_u, cat)
+        table_data = get_all_conversions(val, from_u, cat)
+
+        return Response({
+            "status": "success", 
+            "result": round(res_val, 6), 
+            "table": table_data
+        })
+    except Exception as e:
+        return Response({"status": "error", "message": str(e)}, status=400)    
+    
+    
 
 

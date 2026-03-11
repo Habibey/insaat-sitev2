@@ -10,8 +10,40 @@ export default function Uygulamalar() {
       baslik_tr: "3D Geodezik Modelleme Aracı",
       baslik_en: "3D Geodesic Modeling Tool",
       baglanti_adresi: "geodezik-modelleme",
+      aciklama_tr: "Karmaşık düğüm ve çubuk sistemlerinin yüksek doğrulukla 3 boyutlu analizi.",
+      aciklama_en: "High-accuracy 3D analysis of complex node and member systems.",
       aktif_mi: true
     },
+    {
+      id: 2,
+      baslik_tr: "Kiriş Analizi",
+      baslik_en: "Beam Analysis",
+      baglanti_adresi: "kiris-analizi",
+      aciklama_tr: "Farklı yük tipleri ve konumlarıyla kirişlerin eğilme, kesme kuvveti ve moment analizini yapın.",
+      aciklama_en: "Perform bending, shear force, and moment analysis of beams under various load types and positions.",
+      aktif_mi: true
+    },
+    {
+      id: 3,
+      baslik_tr: "Bileşik Kesit Analizi",
+      baslik_en: "Composite Section Analysis",
+      baglanti_adresi: "bilesik-kesit",
+      aciklama_tr: "Farklı malzeme özelliklerine sahip bileşik kesitlerin analizini yapın.",
+      aciklama_en: "Analyze composite sections with different material properties.",
+      aktif_mi: true
+    },
+    {
+      id: 4,
+      baslik_tr: "Birim Çevirici",
+      baslik_en: "Unit Converter",
+      baglanti_adresi: "birim-cevirici",
+      aciklama_tr: "Mühendislik projelerinizde ihtiyaç duyabileceğiniz çeşitli birimler arasında hızlı ve güvenilir dönüşümler yapın.",
+      aciklama_en: "Perform quick and reliable conversions between various units commonly used in engineering projects.",
+      aktif_mi: true
+    },
+
+
+
     // İleride yeni bir proje gelirse buraya virgül koyup ekleyebilirsin
   ];
 
@@ -28,7 +60,9 @@ export default function Uygulamalar() {
             <h3 style={{ marginTop: 0, color: '#2c3e50' }}>
               {i18n.language === 'tr' ? proje.baslik_tr : proje.baslik_en}
             </h3>
-            
+            <p style={{ color: '#7f8c8d', lineHeight: '1.6' }}>
+              {i18n.language === 'tr' ? proje.aciklama_tr : proje.aciklama_en}
+            </p>
             <p style={{ color: proje.aktif_mi ? '#27ae60' : '#7f8c8d', fontWeight: 'bold' }}>
               {proje.aktif_mi ? "✅ Kullanıma Açık" : "⏳ Yakında Eklenecek"}
             </p>

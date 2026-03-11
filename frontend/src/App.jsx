@@ -5,6 +5,10 @@ import Uygulamalar from './pages/uygulamalar';
 import Ekip from './pages/ekip';
 import Hakkimizda from './pages/hakkimizda';
 import GeodezikUygulama from './pages/GeodezikUygulama';
+import KirisUygulama from './pages/KirisUygulama';
+import BilesikKesit from './pages/BilesikKesit';
+import BirimDonusturucu from './pages/BirimDonusturucu';
+
 
 function App() {
   return (
@@ -20,6 +24,12 @@ function App() {
           <Route path="/ekip" element={<Ekip />} />
           <Route path="/hakkimizda" element={<Hakkimizda />} />
           <Route path="/uygulama/:id" element={<GeodezikUygulama />} />
+          <Route path="/uygulama/kiris-analizi" element={<KirisUygulama />} />
+          <Route path="/uygulama/bilesik-kesit" element={<BilesikKesit />} />
+          <Route path="/uygulama/birim-cevirici" element={<BirimDonusturucu />} />
+        
+         
+          
         </Routes>
       </div>
     </BrowserRouter>
