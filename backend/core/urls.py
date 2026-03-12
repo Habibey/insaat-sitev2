@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import calculate_composite, calculate_dome, ekip_listesi, calculate_beam ,unit_converter 
+from api.views import calculate_composite, calculate_dome, ekip_listesi, calculate_beam ,unit_converter ,hakkimizda ,ekip_detay
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -27,6 +27,8 @@ urlpatterns = [
     path('api/calculate-beam/', calculate_beam), # Kiriş hesaplama API'si
     path('api/calculate-composite/', calculate_composite), # Bileşik kesit hesaplama API'si
     path('api/unit-converter/', unit_converter), # Birim çevirici API'si
+    path('api/hakkimizda/',hakkimizda), # Hakkımızda API'si
+    path('api/ekip/<int:pk>/', ekip_detay), # Belirli bir akademik personel için detay API'si
   
     
 ]

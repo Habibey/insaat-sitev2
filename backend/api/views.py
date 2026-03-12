@@ -1,9 +1,8 @@
-from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .utils import compute_beam_analysis, generate_dome_geometry, grpdet ,steiner,calc_I,calc_T,calc_L,calc_U ,CATEGORIES, to_si, from_si, get_all_conversions # Eski kod
-from .models import AkademikPersonel
-from .serializers import  AkademikPersonelSerializer
+from .models import AkademikPersonel, Hakkimizda 
+from .serializers import  AkademikPersonelSerializer, HakkimizdaSerializer
 import traceback
 import numpy as np # Numpy'ı matematiksel özetler için kullanacağız
 
@@ -19,7 +18,7 @@ def calculate_dome(request):
             'freq': int(data.get('freq', 5))
         }
         
-        # 1. Matematiksel hesaplamaları yap
+        # 1. Matematiksel hesaplamaları yaps
         dome = generate_dome_geometry(params)
         dome = grpdet(dome)
         
@@ -88,6 +87,24 @@ def ekip_listesi(request):
     # Verileri JSON formatına çevir (many=True çünkü birden fazla kişi olabilir)
     serializer = AkademikPersonelSerializer(personeller, many=True)
     return Response(serializer.data)
+@api_view(['GET'])
+def hakkimizda(request):
+   # Veritabanındaki ilk (ve tek) hakkımızda kaydını alır
+    hakkimizda = Hakkimizda.objects.first()
+    if hakkimizda:
+        serializer = HakkimizdaSerializer(hakkimizda)
+        return Response(serializer.data)
+    return Response({"error": "İçerik henüz eklenmedi."}, status=404)
+@api_view(['GET'])
+def ekip_detay(request, pk):
+    try:
+        personel = AkademikPersonel.objects.get(pk=pk)
+        serializer = AkademikPersonelSerializer(personel)
+        return Response(serializer.data)
+    except AkademikPersonel.DoesNotExist:
+        return Response({"error": "Personel bulunamadı."}, status=404)
+        
+
 
 @api_view(['POST'])
 def calculate_beam(request):

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import AkademikPersonel
+from .models import AkademikPersonel, Hakkimizda
 
 @admin.register(AkademikPersonel)
 class AkademikPersonelAdmin(admin.ModelAdmin):
@@ -9,5 +9,9 @@ class AkademikPersonelAdmin(admin.ModelAdmin):
     list_editable = ('sira',) 
     # Varsayılan sıralama şekli
     ordering = ('sira',)
+
+@admin.register(Hakkimizda)
+class HakkimizdaAdmin(admin.ModelAdmin):
+    list_display = ('baslik_tr', 'baslik_en')
 
 
