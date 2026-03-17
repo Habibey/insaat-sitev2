@@ -2,12 +2,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
 import Home from './pages/home';
 import Uygulamalar from './pages/uygulamalar';
-import Ekip from './pages/ekip';
-import Hakkimizda from './pages/hakkimizda';
+import Ekip from './pages/Ekip';
+import Hakkimizda from './pages/Hakkimizda';
 import GeodezikUygulama from './pages/GeodezikUygulama';
 import KirisUygulama from './pages/KirisUygulama';
 import BilesikKesit from './pages/BilesikKesit';
 import BirimDonusturucu from './pages/BirimDonusturucu';
+import EkipDetay from './pages/EkipDetay'; // Ekip detay sayfasını import ettik
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/uygulama/kiris-analizi" element={<KirisUygulama />} />
           <Route path="/uygulama/bilesik-kesit" element={<BilesikKesit />} />
           <Route path="/uygulama/birim-cevirici" element={<BirimDonusturucu />} />
+          <Route path="/ekip/:id" element={<EkipDetay />} />
         
          
           
