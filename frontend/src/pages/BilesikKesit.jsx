@@ -25,7 +25,11 @@ export default function BilesikKesit() {
     line: { color: '#4a9eff', width: 2 }, fillcolor: 'rgba(74,158,255,0.2)'
   })) : [];
 
-  const cardStyle = { background: 'white', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.05)', marginBottom: '20px' };
+  const cardStyle = { background: 'var(--bg-card)', 
+  padding: '20px', 
+  border: '1px solid var(--border-color)', 
+  marginBottom: '20px',
+  color: 'var(--text-main)' };
 
   return (
     <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap', paddingBottom: '50px' }}>

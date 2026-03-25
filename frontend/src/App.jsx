@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
-import Home from './pages/home';
+import Home from './pages/Home';
 import Uygulamalar from './pages/uygulamalar';
 import Ekip from './pages/Ekip';
 import Hakkimizda from './pages/Hakkimizda';
@@ -18,8 +18,7 @@ function App() {
       <Navbar />
       
       {/* Sayfa içerikleri bu div'in içinde değişecek */}
-      <div style={{ padding: '40px' }}>
-        <Routes>
+      <div style={{ paddingTop: '100px', minHeight: '100vh' }}>        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/uygulamalar" element={<Uygulamalar />} />
           <Route path="/ekip" element={<Ekip />} />

@@ -35,7 +35,11 @@ export default function KirisUygulama() {
     setLoading(false);
   };
 
-  const cardStyle = { background: 'white', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.05)', marginBottom: '20px' };
+  const cardStyle = { background: 'var(--bg-card)', 
+  padding: '20px', 
+  border: '1px solid var(--border-color)', 
+  marginBottom: '20px',
+  color: 'var(--text-main)' };
   const inputStyle = { width: '100%', padding: '8px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' };
 
   return (

@@ -37,7 +37,11 @@ export default function BirimDonusturucu() {
     setInputs({ ...inputs, from_unit: inputs.to_unit, to_unit: inputs.from_unit });
   };
 
-  const cardStyle = { background: 'white', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.05)', marginBottom: '20px' };
+  const cardStyle = { background: 'var(--bg-card)', 
+  padding: '20px', 
+  border: '1px solid var(--border-color)', 
+  marginBottom: '20px',
+  color: 'var(--text-main)' };
 
   if (Object.keys(categories).length === 0) return <div>Yükleniyor...</div>;
 
