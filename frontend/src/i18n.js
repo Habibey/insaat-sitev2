@@ -49,7 +49,8 @@ const resources = {
       "form_name": "Ad Soyad",
       "form_msg": "Mesaj",
       "btn_send": "Mesaj Gönder",
-      "footer_copy": "© 2026 HISTECH-SHM Araştırma Grubu · Tüm hakları saklıdır."
+      "footer_copy": "© 2026 HISTECH-SHM Araştırma Grubu · Tüm hakları saklıdır.",
+      "ekip_baslik": "Ekip Üyelerimiz"
     }
   },
   en: {
@@ -99,7 +100,8 @@ const resources = {
       "form_name": "Full Name",
       "form_msg": "Message",
       "btn_send": "Send Message",
-      "footer_copy": "© 2026 HISTECH-SHM Research Group · All rights reserved."
+      "footer_copy": "© 2026 HISTECH-SHM Research Group · All rights reserved.",
+      "ekip_baslik": "Our Team Members"
     }
   }
 };

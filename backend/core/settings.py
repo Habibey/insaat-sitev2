@@ -21,11 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'insaat-db',         # pgAdmin'de oluşturduğun veritabanı adı
-        'USER': 'postgres',          # pgAdmin ana kullanıcı adın
-        'PASSWORD': 'postgres123',  # pgAdmin'e girerken kullandığın şifre
-        'HOST': '127.0.0.1',         # Yerel sunucu adresin (localhost)
-        'PORT': '5432',              # PostgreSQL varsayılan portu
+        'NAME': 'insaat-db',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres123',
+        # DİKKAT: 127.0.0.1 yerine db yazdık! 
+        # Çünkü docker-compose dosyasında veritabanının adını 'db' koyduk.
+        'HOST': 'db', 
+        'PORT': '5432',
     }
 }
 

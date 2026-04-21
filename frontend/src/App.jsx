@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/navbar';
 import Home from './pages/Home';
-import Uygulamalar from './pages/uygulamalar';
+import Uygulamalar from './pages/Uygulamalar';
 import Ekip from './pages/Ekip';
 import Hakkimizda from './pages/Hakkimizda';
 import GeodezikUygulama from './pages/GeodezikUygulama';
