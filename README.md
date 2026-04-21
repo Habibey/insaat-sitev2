@@ -60,3 +60,27 @@ npm install
 
 # Start the Vite development server
 npm run dev
+
+
+//TÜRKÇE
+git clone https://github.com/Habibey/insaat-sitev2.git
+cd insaat-sitev2
+
+cd backend
+python -m venv venv
+
+# Windows için aktif etme:
+venv\Scripts\activate
+# Mac/Linux için aktif etme: source venv/bin/activate
+
+# Tüm kütüphaneleri (NumPy, Django vb.) tek seferde kurma:
+pip install -r requirements.txt
+
+# Veritabanını hazırlama ve sunucuyu başlatma:
+python manage.py migrate
+python manage.py runserver
+
+#Yeni bir terminal ile frontendi kurma
+cd frontend
+npm install
+npm run dev

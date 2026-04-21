@@ -10,3 +10,7 @@ backend/db.sqlite3
 backend/media/
 *.pyc
 *.pyo
+
+# OS
+.DS_Store
+Thumbs.db

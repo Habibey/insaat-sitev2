@@ -1,0 +1,41 @@
+services:
+  # 1. Veritabanı Kapsülü
+  db:
+    image: postgres:15-alpine
+    container_name: histech_db
+    environment:
+      POSTGRES_DB: insaat-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    ports:
+      - "5432:5432"
+    restart: always
+    # YENİ EKLENEN KISIM: Veritabanı hazır mı diye 5 saniyede bir sor
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d insaat-db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # 2. Django Kapsülü
+  backend:
+    build: ./backend
+    container_name: histech_backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy # YENİ EKLENEN KISIM: Veritabanı "sağlıklı" olana kadar bekle!
+    volumes:
+      - ./backend:/app
+    restart: always
+
+  # 3. React Kapsülü
+  frontend:
+    build: ./frontend
+    container_name: histech_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always

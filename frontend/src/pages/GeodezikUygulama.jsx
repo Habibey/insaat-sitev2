@@ -11,18 +11,16 @@ export default function GeodezikUygulama() {
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // --- HOCANIN GÖRÜNÜM SEÇENEKLERİ (DISPLAY OPTIONS) STATE'LERİ ---
+  // Görünüm Seçenekleri State'leri
   const [showNodes, setShowNodes] = useState(true);
   const [showMembers, setShowMembers] = useState(true);
   const [showGroups, setShowGroups] = useState(false);
-  const [groupStyle, setGroupStyle] = useState('Colored'); // 'Colored' veya 'Single Color'
+  const [groupStyle, setGroupStyle] = useState('Colored');
 
-  // Parametre değişim fonksiyonu
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: parseFloat(e.target.value) });
   };
 
-  // Görünüm seçeneklerinde "Grup" ve "Eleman" çakışmasını önleyen mantık
   const handleShowGroups = (e) => {
     setShowGroups(e.target.checked);
     if (e.target.checked) setShowMembers(false);
@@ -46,7 +44,7 @@ export default function GeodezikUygulama() {
     setLoading(false);
   };
 
-  // --- ÇİZİM VE KATMAN VERİLERİNİ HAZIRLAMA ---
+  // --- ÇİZİM VE KATMAN VERİLERİ ---
   let plotTraces = [];
   let layoutConfig = {};
   const palette = ['#636EFA', '#EF553B', '#00CC96', '#AB63FA', '#FFA15A', '#19D3F3', '#FF6692', '#B6E880', '#FF97FF', '#FECB52'];
@@ -54,7 +52,6 @@ export default function GeodezikUygulama() {
   if (result && result.nodes_raw && result.members_raw) {
     let xCoords = [], yCoords = [], zCoords = [];
 
-    // Oran koruma (Aspect Ratio) için sınırları bul
     result.nodes_raw.forEach(node => {
       xCoords.push(node[1]); yCoords.push(node[2]); zCoords.push(node[3]);
     });
@@ -68,7 +65,6 @@ export default function GeodezikUygulama() {
       camera: { eye: { x: 1.5, y: 1.5, z: 1.2 } }
     };
 
-    // 1. ELEMAN ÇİZGİLERİ (RENKLİ VEYA TEK RENK) VE GRUP YAZILARI
     if (groupStyle === 'Colored' && result.groups_draw) {
       Object.keys(result.groups_draw).forEach(gid => {
         const color = palette[parseInt(gid) % palette.length];
@@ -88,7 +84,6 @@ export default function GeodezikUygulama() {
             lineY.push(p1[2], p2[2], null);
             lineZ.push(p1[3], p2[3], null);
 
-            // Grup numaralarını göstermek açıksa tam ortaya metin ekle
             if (showGroups) {
               groupMx.push((p1[1] + p2[1]) / 2);
               groupMy.push((p1[2] + p2[2]) / 2);
@@ -98,7 +93,6 @@ export default function GeodezikUygulama() {
           }
         });
 
-        // Çizgileri bas
         plotTraces.push({
           x: lineX, y: lineY, z: lineZ,
           type: 'scatter3d', mode: 'lines',
@@ -106,7 +100,6 @@ export default function GeodezikUygulama() {
           hoverinfo: 'none', showlegend: false
         });
 
-        // Grup Yazılarını bas
         if (showGroups) {
           plotTraces.push({
             x: groupMx, y: groupMy, z: groupMz,
@@ -118,7 +111,6 @@ export default function GeodezikUygulama() {
         }
       });
     } else {
-      // Tek Renk (Single Color) Modu
       let lineX = [], lineY = [], lineZ = [];
       result.members_raw.forEach(member => {
         let p1 = result.nodes_raw[parseInt(member[1]) - 1];
@@ -130,31 +122,29 @@ export default function GeodezikUygulama() {
       plotTraces.push({
           x: lineX, y: lineY, z: lineZ,
           type: 'scatter3d', mode: 'lines',
-          line: { color: 'lightgray', width: 2 },
+          line: { color: 'var(--stone)', width: 2 },
           hoverinfo: 'none', showlegend: false
       });
     }
 
-    // 2. DÜĞÜM NOKTALARI VE YAZILARI (NODES)
     if (showNodes) {
       let nodeX = [], nodeY = [], nodeZ = [], nodeText = [];
       result.nodes_raw.forEach(node => {
         nodeX.push(node[1]); nodeY.push(node[2]); nodeZ.push(node[3]);
-        nodeText.push(String(node[0])); // Düğüm ID'si
+        nodeText.push(String(node[0])); 
       });
       plotTraces.push({
         x: nodeX, y: nodeY, z: nodeZ,
         type: 'scatter3d', mode: 'markers+text',
-        marker: { color: 'black', size: 4 },
+        marker: { color: 'var(--rust)', size: 4 },
         text: nodeText,
         textposition: 'top center',
-        textfont: { size: 9, color: 'black' },
+        textfont: { size: 9, color: 'var(--text-main)' },
         name: i18n.language === 'tr' ? 'Düğümler' : 'Nodes',
         hoverinfo: 'text'
       });
     }
 
-    // 3. ELEMAN NUMARALARI (MEMBERS)
     if (showMembers && !showGroups) {
       let memMx = [], memMy = [], memMz = [], memText = [];
       result.members_raw.forEach(member => {
@@ -171,65 +161,87 @@ export default function GeodezikUygulama() {
         x: memMx, y: memMy, z: memMz,
         type: 'scatter3d', mode: 'text', text: memText,
         textposition: 'middle center',
-        textfont: { size: 9, color: 'black' },
+        textfont: { size: 9, color: 'var(--text-main)' },
         showlegend: false, hoverinfo: 'none'
       });
     }
   }
 
-  // Stil Sabitleri
-  const tableHeaderStyle = { background: '#f4f7f6', padding: '10px', borderBottom: '2px solid #ddd', textAlign: 'left', fontWeight: 'bold' };
-  const tableRowStyle = { borderBottom: '1px solid #eee' };
+  // --- TEMAYA DUYARLI STİL SABİTLERİ ---
+  const containerStyle = { 
+    background: 'var(--bg-card)', 
+    color: 'var(--text-main)', 
+    padding: '25px', 
+    borderRadius: '8px', 
+    border: '1px solid var(--border-color)' 
+  };
+  const tableHeaderStyle = { 
+    background: 'rgba(200,185,154,0.1)', 
+    padding: '10px', 
+    borderBottom: '2px solid var(--border-color)', 
+    textAlign: 'left', 
+    fontWeight: 'bold',
+    color: 'var(--text-main)'
+  };
+  const tableRowStyle = { borderBottom: '1px solid var(--border-color)' };
   const tableCellStyle = { padding: '10px' };
-  const containerStyle = { background: 'white', padding: '20px', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.05)' };
 
   return (
-    <div style={{ paddingBottom: '50px' }}>
+    <div style={{ paddingBottom: '50px', maxWidth: '1400px', margin: '0 auto', paddingTop: '20px' }}>
       <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap', marginBottom: '40px' }}>
         
         {/* SOL TARAF: FORM VE GÖRÜNÜM SEÇENEKLERİ */}
         <div style={{ flex: '1', minWidth: '300px', display: 'flex', flexDirection: 'column', gap: '20px' }}>
           
-          {/* Parametre Formu */}
-          <div style={{ ...containerStyle, padding: '25px' }}>
-            <h2 style={{ marginTop: 0 }}>{i18n.language === 'tr' ? 'Geodezik Kubbe Parametreleri' : 'Geodesic Dome Parameters'}</h2>
+          <div style={containerStyle}>
+            <h2 style={{ marginTop: 0, fontFamily: "'Cormorant Garamond', serif" }}>
+              {i18n.language === 'tr' ? 'Geodezik Kubbe Parametreleri' : 'Geodesic Dome Parameters'}
+            </h2>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-              <div><label><b>Type (3-9):</b></label><br/><input type="number" name="type" value={formData.type} onChange={handleChange} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ddd' }} /></div>
-              <div><label><b>Span (m):</b></label><br/><input type="number" step="0.1" name="span" value={formData.span} onChange={handleChange} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ddd' }} /></div>
-              <div><label><b>Height (m):</b></label><br/><input type="number" step="0.1" name="height" value={formData.height} onChange={handleChange} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ddd' }} /></div>
-              <div><label><b>Frequency:</b></label><br/><input type="number" name="freq" value={formData.freq} onChange={handleChange} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ddd' }} /></div>
+              {/* Inputların stillerini index.css'e bıraktık, sadece layout verdik */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                <label><b>Type (3-9):</b></label>
+                <input type="number" name="type" value={formData.type} onChange={handleChange} style={{ width: '100%' }} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                <label><b>Span (m):</b></label>
+                <input type="number" step="0.1" name="span" value={formData.span} onChange={handleChange} style={{ width: '100%' }} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                <label><b>Height (m):</b></label>
+                <input type="number" step="0.1" name="height" value={formData.height} onChange={handleChange} style={{ width: '100%' }} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                <label><b>Frequency:</b></label>
+                <input type="number" name="freq" value={formData.freq} onChange={handleChange} style={{ width: '100%' }} />
+              </div>
               
-              <button type="submit" disabled={loading} style={{ 
-                padding: '12px', background: loading ? '#bdc3c7' : '#2c3e50', color: 'white', 
-                border: 'none', borderRadius: '5px', cursor: loading ? 'not-allowed' : 'pointer', 
-                fontSize: '16px', fontWeight: 'bold'
-              }}>
+              <button type="submit" disabled={loading} className="btn-primary" style={{ width: '100%', marginTop: '10px', background: loading ? 'var(--muted)' : 'var(--rust)' }}>
                 {loading ? 'Hesaplanıyor...' : 'Hesapla & Çiz'}
               </button>
             </form>
           </div>
 
-          {/* GÖRÜNÜM SEÇENEKLERİ (DISPLAY OPTIONS) */}
-          <div style={{ ...containerStyle, background: '#f8f9f9', border: '1px solid #e5e8e8' }}>
-            <h3 style={{ marginTop: 0, color: '#34495e' }}>{i18n.language === 'tr' ? 'Görünüm Seçenekleri' : 'Display Options'}</h3>
+          <div style={containerStyle}>
+            <h3 style={{ marginTop: 0, fontFamily: "'Cormorant Garamond', serif" }}>
+              {i18n.language === 'tr' ? 'Görünüm Seçenekleri' : 'Display Options'}
+            </h3>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
                 <input type="checkbox" checked={showNodes} onChange={(e) => setShowNodes(e.target.checked)} />
                 <b>{i18n.language === 'tr' ? 'Düğümleri Göster (Show Nodes)' : 'Show Nodes'}</b>
               </label>
-              
               <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
                 <input type="checkbox" checked={showMembers} onChange={handleShowMembers} />
                 <b>{i18n.language === 'tr' ? 'Elemanları Göster (Show Members)' : 'Show Members'}</b>
               </label>
-              
               <label style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }}>
                 <input type="checkbox" checked={showGroups} onChange={handleShowGroups} />
                 <b>{i18n.language === 'tr' ? 'Grupları Göster (Show Groups)' : 'Show Groups'}</b>
               </label>
 
-              <hr style={{ border: 'none', borderTop: '1px solid #ddd', margin: '10px 0' }} />
+              <hr style={{ border: 'none', borderTop: '1px solid var(--border-color)', margin: '10px 0' }} />
               
               <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                 <b>{i18n.language === 'tr' ? 'Renk Stili (Group Color Style)' : 'Group Color Style'}</b>
@@ -244,7 +256,6 @@ export default function GeodezikUygulama() {
               </div>
             </div>
           </div>
-          
         </div>
 
         {/* SAĞ TARAF: 3D ÇİZİM ALANI */}
@@ -256,11 +267,15 @@ export default function GeodezikUygulama() {
                 width: 700, height: 600, 
                 title: i18n.language === 'tr' ? `3D Geodezik Model (${result.info_summary.dome_type})` : `3D Geodesic Model (${result.info_summary.dome_type})`,
                 margin: { l: 0, r: 0, b: 0, t: 40 },
-                showlegend: false, scene: layoutConfig
+                showlegend: false, scene: layoutConfig,
+                paper_bgcolor: 'rgba(0,0,0,0)', // Plotly arka planını transparan yaptık
+                plot_bgcolor: 'rgba(0,0,0,0)',
+                font: { color: 'var(--text-main)' } // Plotly yazı renklerini temaya uyarladık
               }}
+              style={{ width: '100%' }}
             />
           ) : (
-            <div style={{ height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#7f8c8d', border: '2px dashed #eee', borderRadius: '10px' }}>
+            <div style={{ height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--muted)', border: '2px dashed var(--border-color)', borderRadius: '8px' }}>
               {i18n.language === 'tr' ? 'Grafiği görmek için parametreleri girip hesaplayın.' : 'Enter parameters and calculate to see the graph.'}
             </div>
           )}
@@ -272,26 +287,26 @@ export default function GeodezikUygulama() {
         <div>
           {/* 1. Dome Information (Özet) */}
           <div style={{ ...containerStyle, marginBottom: '30px' }}>
-            <h3 style={{ marginTop: 0 }}>Dome Information</h3>
+            <h3 style={{ marginTop: 0, fontFamily: "'Cormorant Garamond', serif" }}>Dome Information</h3>
             <table style={{ width: '100%', borderCollapse: 'collapse', marginTop: '10px' }}>
               <tbody>
-                <tr><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Dome Type</td><td style={tableCellStyle}>{result.info_summary.dome_type}</td></tr>
-                <tr style={{ background: '#fbfcfc' }}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Frequency</td><td style={tableCellStyle}>{result.info_summary.frequency}</td></tr>
-                <tr><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Node Count</td><td style={tableCellStyle}>{result.info_summary.node_count}</td></tr>
-                <tr style={{ background: '#fbfcfc' }}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Member Count</td><td style={tableCellStyle}>{result.info_summary.member_count}</td></tr>
-                <tr><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Group Count</td><td style={tableCellStyle}>{result.info_summary.group_count}</td></tr>
-                <tr style={{ background: '#fbfcfc' }}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Total Length (m)</td><td style={tableCellStyle}>{result.info_summary.total_length}</td></tr>
-                <tr><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Min Element Length (m)</td><td style={tableCellStyle}>{result.info_summary.min_length}</td></tr>
-                <tr style={{ background: '#fbfcfc' }}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Max Element Length (m)</td><td style={tableCellStyle}>{result.info_summary.max_length}</td></tr>
+                <tr style={tableRowStyle}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Dome Type</td><td style={tableCellStyle}>{result.info_summary.dome_type}</td></tr>
+                <tr style={{ background: 'rgba(200,185,154,0.03)', ...tableRowStyle }}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Frequency</td><td style={tableCellStyle}>{result.info_summary.frequency}</td></tr>
+                <tr style={tableRowStyle}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Node Count</td><td style={tableCellStyle}>{result.info_summary.node_count}</td></tr>
+                <tr style={{ background: 'rgba(200,185,154,0.03)', ...tableRowStyle }}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Member Count</td><td style={tableCellStyle}>{result.info_summary.member_count}</td></tr>
+                <tr style={tableRowStyle}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Group Count</td><td style={tableCellStyle}>{result.info_summary.group_count}</td></tr>
+                <tr style={{ background: 'rgba(200,185,154,0.03)', ...tableRowStyle }}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Total Length (m)</td><td style={tableCellStyle}>{result.info_summary.total_length}</td></tr>
+                <tr style={tableRowStyle}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Min Element Length (m)</td><td style={tableCellStyle}>{result.info_summary.min_length}</td></tr>
+                <tr style={{ background: 'rgba(200,185,154,0.03)', ...tableRowStyle }}><td style={{ ...tableCellStyle, fontWeight: 'bold' }}>Max Element Length (m)</td><td style={tableCellStyle}>{result.info_summary.max_length}</td></tr>
               </tbody>
             </table>
           </div>
 
           <div style={{ display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
             {/* 2. Nodes Table */}
-            <div style={{ ...containerStyle, flex: '1', minWidth: '300px' }}>
-              <h3 style={{ marginTop: 0 }}>Nodes (First 50)</h3>
-              <div style={{ maxHeight: '400px', overflowY: 'auto', border: '1px solid #eee', borderRadius: '4px' }}>
+            <div style={{ ...containerStyle, flex: '1', minWidth: '300px', padding: '0', overflow: 'hidden' }}>
+              <h3 style={{ margin: '20px', fontFamily: "'Cormorant Garamond', serif" }}>Nodes (First 50)</h3>
+              <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
                     <tr><th style={tableHeaderStyle}>Node</th><th style={tableHeaderStyle}>X</th><th style={tableHeaderStyle}>Y</th><th style={tableHeaderStyle}>Z</th></tr>
@@ -308,9 +323,9 @@ export default function GeodezikUygulama() {
             </div>
 
             {/* 3. Members Table */}
-            <div style={{ ...containerStyle, flex: '1', minWidth: '300px' }}>
-              <h3 style={{ marginTop: 0 }}>Members (First 50)</h3>
-              <div style={{ maxHeight: '400px', overflowY: 'auto', border: '1px solid #eee', borderRadius: '4px' }}>
+            <div style={{ ...containerStyle, flex: '1', minWidth: '300px', padding: '0', overflow: 'hidden' }}>
+              <h3 style={{ margin: '20px', fontFamily: "'Cormorant Garamond', serif" }}>Members (First 50)</h3>
+              <div style={{ maxHeight: '400px', overflowY: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                   <thead style={{ position: 'sticky', top: 0, zIndex: 1 }}>
                     <tr><th style={tableHeaderStyle}>Member</th><th style={tableHeaderStyle}>Node1</th><th style={tableHeaderStyle}>Node2</th></tr>

@@ -1,49 +1,106 @@
-import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 export default function Uygulamalar() {
-  const { t, i18n } = useTranslation();
-
-  const projeler = [
+  // Uygulama verilerini bir liste olarak tanımlıyoruz (Ekleme/Çıkarma yapması kolay olsun diye)
+  const uygulamaListesi = [
     {
-      id: 1,
-      baslik_tr: "3D Geodezik Modelleme Aracı",
-      baslik_en: "3D Geodesic Modeling Tool",
-      baglanti_adresi: "geodezik-modelleme",
-      aktif_mi: true
+      baslik: "3D Geodezik Modelleme Aracı",
+      aciklama: "Karmaşık düğüm ve çubuk sistemlerinin yüksek doğrulukla 3 boyutlu analizi.",
+      link: "/uygulama/geodezik", // App.jsx'teki rotan neyse burayı ona göre güncelle
+      etiket: "ÜCRETSİZ"
     },
-    // İleride yeni bir proje gelirse buraya virgül koyup ekleyebilirsin
+    {
+      baslik: "Kiriş Analizi",
+      aciklama: "Farklı yük tipleri ve konumlarıyla kirişlerin eğilme, kesme kuvveti ve moment analizini yapın.",
+      link: "/uygulama/kiris-analizi",
+      etiket: "ÜCRETSİZ"
+    },
+    {
+      baslik: "Bileşik Kesit Analizi",
+      aciklama: "Farklı malzeme özelliklerine sahip bileşik kesitlerin (Steiner teoremi ile) analizini yapın.",
+      link: "/uygulama/bilesik-kesit",
+      etiket: "ÜCRETSİZ"
+    },
+    {
+      baslik: "Geometrik Özellikler",
+      aciklama: "2D geometrik şekillerin alan, ağırlık merkezi ve atalet momenti analizi.",
+      link: "/uygulama/geometrik-ozellikler",
+      etiket: "ÜCRETSİZ"
+    },
+    {
+      baslik: "Birim Çevirici",
+      aciklama: "Mühendislik projelerinizde ihtiyaç duyabileceğiniz çeşitli birimler arasında hızlı ve güvenilir dönüşümler yapın.",
+      link: "/uygulama/birim-donusturucu",
+      etiket: "ÜCRETSİZ"
+    }
   ];
 
   return (
-    <div>
-      <h2>{t('uygulamalar')}</h2>
+    <div style={{ padding: '4rem 2rem', maxWidth: '1400px', margin: '0 auto' }}>
       
-      <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', marginTop: '20px' }}>
-        {projeler.map(proje => (
-          <div key={proje.id} style={{ 
-            border: '1px solid #e0e0e0', padding: '25px', borderRadius: '10px', 
-            width: '300px', background: 'white', boxShadow: '0 4px 10px rgba(0,0,0,0.05)' 
-          }}>
-            <h3 style={{ marginTop: 0, color: '#2c3e50' }}>
-              {i18n.language === 'tr' ? proje.baslik_tr : proje.baslik_en}
+      {/* Sayfa Başlığı (Anasayfa ile Uyumlu) */}
+      <div style={{ marginBottom: '4rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '2rem' }}>
+        <div style={{ fontSize: '0.58rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--rust)', marginBottom: '0.5rem' }}>
+          Tüm Araçlar
+        </div>
+        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(2.5rem, 4vw, 4rem)', fontWeight: 300, color: 'var(--text-main)', margin: 0 }}>
+          Mühendislik Uygulamaları
+        </h1>
+      </div>
+
+      {/* Uygulamalar Izgarası (Grid) */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
+        
+        {uygulamaListesi.map((uygulama, index) => (
+          <Link 
+            to={uygulama.link} 
+            key={index} 
+            className="tool-card" 
+            style={{ 
+              border: '1px solid var(--border-color)', 
+              padding: '2rem', 
+              background: 'rgba(200,185,154,0.02)', 
+              textDecoration: 'none', 
+              display: 'block',
+              transition: 'all 0.3s ease'
+            }}
+          >
+            {/* Etiket (Badge) */}
+            <span style={{ 
+              fontSize: '0.5rem', 
+              letterSpacing: '0.2em', 
+              textTransform: 'uppercase', 
+              padding: '0.2rem 0.5rem', 
+              background: 'rgba(42,122,110,0.2)', 
+              color: '#4ECDC4', 
+              marginBottom: '1rem', 
+              display: 'inline-block' 
+            }}>
+              {uygulama.etiket}
+            </span>
+            
+            {/* Başlık */}
+            <h3 style={{ 
+              fontFamily: "'Cormorant Garamond', serif", 
+              fontSize: '1.4rem', 
+              color: 'var(--text-main)', 
+              marginBottom: '0.8rem' 
+            }}>
+              {uygulama.baslik}
             </h3>
             
-            <p style={{ color: proje.aktif_mi ? '#27ae60' : '#7f8c8d', fontWeight: 'bold' }}>
-              {proje.aktif_mi ? "✅ Kullanıma Açık" : "⏳ Yakında Eklenecek"}
+            {/* Açıklama */}
+            <p style={{ 
+              fontSize: '0.65rem', 
+              lineHeight: 1.8, 
+              color: 'var(--muted)',
+              margin: 0 
+            }}>
+              {uygulama.aciklama}
             </p>
-            
-            {proje.aktif_mi && (
-              <Link to={`/uygulama/${proje.baglanti_adresi}`} style={{
-                display: 'inline-block', marginTop: '15px', padding: '10px 20px',
-                background: '#3498db', color: 'white', textDecoration: 'none', 
-                borderRadius: '5px', fontWeight: 'bold'
-              }}>
-                {i18n.language === 'tr' ? 'Uygulamayı Başlat' : 'Launch App'}
-              </Link>
-            )}
-          </div>
+          </Link>
         ))}
+
       </div>
     </div>
   );
