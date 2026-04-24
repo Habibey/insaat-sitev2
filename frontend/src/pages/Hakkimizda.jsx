@@ -10,7 +10,7 @@ export default function Hakkimizda() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/hakkimizda/')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/hakkimizda/`)
       .then(response => {
         setIcerik(response.data);
         setLoading(false);

@@ -11,7 +11,7 @@ export default function Ekip() {
 
   // Sayfa yüklendiğinde Django'dan verileri getir
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/ekip/')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/ekip/`)
       .then(response => {
         setPersoneller(response.data);
       })
@@ -40,7 +40,7 @@ export default function Ekip() {
               {/* Fotoğraf varsa göster */}
               {kisi.fotograf && (
                 <img 
-                  src={`http://127.0.0.1:8000${kisi.fotograf}`} 
+                  src={`${import.meta.env.VITE_API_URL}${kisi.fotograf}`} 
                   alt={kisi.ad_soyad} 
                   style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '8px' }} 
                 />

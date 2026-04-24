@@ -52,7 +52,8 @@ export default function Home() {
       {/* 1. ARAŞTIRMA ALANLARI */}
       <section id="research" style={{ padding: '6rem 4rem', maxWidth: '1400px', margin: '0 auto' }}>
         <div className="section-header" style={{ display: 'flex', alignItems: 'flex-end', gap: '2rem', marginBottom: '4rem' }}>
-          <div className="section-num" style={{ fontFamily: "'Syne', sans-serif", fontSize: '5rem', fontWeight: 800, color: 'rgba(200,185,154,0.08)', lineHeight: 1, flexShrink: 0 }}>01</div>
+          {/* Büyük Numaralar koymak isterseniz bu div'in içine ekleyebilirsiniz, CSS ile opaklığını düşürüp arka plana atabilirsiniz. */}
+          <div className="section-num" style={{ fontFamily: "'Syne', sans-serif", fontSize: '5rem', fontWeight: 800, color: 'rgba(200,185,154,0.08)', lineHeight: 1, flexShrink: 0 }}></div>
           <div>
             <div className="section-label" style={{ fontSize: '0.58rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--rust)', marginBottom: '0.5rem' }}>{t('sec_research_label')}</div>
             <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('sec_research_title').replace(' ', '<br/>') }}></h2>
@@ -81,7 +82,7 @@ export default function Home() {
       {/* 2. UYGULAMALAR (TOOLS) */}
       <section id="apps" style={{ padding: '6rem 4rem', maxWidth: '1400px', margin: '0 auto' }}>
         <div className="section-header" style={{ display: 'flex', alignItems: 'flex-end', gap: '2rem', marginBottom: '4rem' }}>
-          <div className="section-num" style={{ fontFamily: "'Syne', sans-serif", fontSize: '5rem', fontWeight: 800, color: 'rgba(200,185,154,0.08)', lineHeight: 1, flexShrink: 0 }}>02</div>
+          <div className="section-num" style={{ fontFamily: "'Syne', sans-serif", fontSize: '5rem', fontWeight: 800, color: 'rgba(200,185,154,0.08)', lineHeight: 1, flexShrink: 0 }}></div>
           <div>
             <div className="section-label" style={{ fontSize: '0.58rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--rust)', marginBottom: '0.5rem' }}>{t('sec_apps_label')}</div>
             <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('sec_apps_title').replace(' ', '<br/>') }}></h2>
@@ -118,7 +119,7 @@ export default function Home() {
       {/* 3. EKİP */}
       <section id="ekip" style={{ padding: '6rem 4rem', maxWidth: '1400px', margin: '0 auto' }}>
         <div className="section-header" style={{ display: 'flex', alignItems: 'flex-end', gap: '2rem', marginBottom: '4rem' }}>
-          <div className="section-num" style={{ fontFamily: "'Syne', sans-serif", fontSize: '5rem', fontWeight: 800, color: 'rgba(200,185,154,0.08)', lineHeight: 1, flexShrink: 0 }}>03</div>
+          <div className="section-num" style={{ fontFamily: "'Syne', sans-serif", fontSize: '5rem', fontWeight: 800, color: 'rgba(200,185,154,0.08)', lineHeight: 1, flexShrink: 0 }}></div>
           <div>
             <div className="section-label" style={{ fontSize: '0.58rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--rust)', marginBottom: '0.5rem' }}>{t('sec_team_label')}</div>
             <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('sec_team_title').replace(' ', '<br/>') }}></h2>

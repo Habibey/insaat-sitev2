@@ -9,7 +9,7 @@ export default function BirimDonusturucu() {
 
   // Sayfa yüklendiğinde kategorileri Backend'den çek
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/unit-converter/')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/unit-converter/`)
       .then(res => {
         setCategories(res.data.categories);
         // İlk kategori yüklendiğinde varsayılan birimleri ayarla
@@ -22,7 +22,7 @@ export default function BirimDonusturucu() {
   // Değerler her değiştiğinde otomatik hesapla
   useEffect(() => {
     if (inputs.from_unit && inputs.to_unit) {
-      axios.post('http://127.0.0.1:8000/api/unit-converter/', { category: activeCat, ...inputs })
+      axios.post(`${import.meta.env.VITE_API_URL}/api/unit-converter/`, { category: activeCat, ...inputs })
         .then(res => setResult(res.data));
     }
   }, [inputs, activeCat]);

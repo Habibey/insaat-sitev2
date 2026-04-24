@@ -107,7 +107,7 @@ const resources = {
 };
 
 i18n
-  .use(initReactI18next) // HATAYI ÇÖZECEK OLAN BAĞLANTI BURADA
+  .use(initReactI18next) 
   .init({
     resources,
     lng: "tr", // Başlangıç dili Türkçe
