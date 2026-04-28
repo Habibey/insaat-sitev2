@@ -30,7 +30,7 @@ export default function Uygulamalar() {
     {
       baslik: "Birim Çevirici",
       aciklama: "Mühendislik projelerinizde ihtiyaç duyabileceğiniz çeşitli birimler arasında hızlı ve güvenilir dönüşümler yapın.",
-      link: "/uygulama/birim-donusturucu",
+      link: "/uygulama/birim-cevirici",
    
     }
   ];

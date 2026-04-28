@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .utils import compute_beam_analysis, generate_dome_geometry, grpdet ,steiner,calc_I,calc_T,calc_L,calc_U ,CATEGORIES, to_si, from_si, get_all_conversions # Eski kod
+from .utils import compute_beam_analysis, generate_dome_geometry, grpdet ,steiner,calc_I,calc_T,calc_L,calc_U ,calc_Z,calc_Box, CATEGORIES, to_si, from_si, get_all_conversions # Eski kod
 from .models import AkademikPersonel, Hakkimizda 
 from .serializers import  AkademikPersonelSerializer, HakkimizdaSerializer
 import traceback
@@ -155,6 +155,10 @@ def calculate_composite(request):
             res = calc_L(float(data.get('b', 120)), float(data.get('h', 120)), float(data.get('t1', 12)), float(data.get('t2', 12)))
         elif section_type == 'U':
             res = calc_U(float(data.get('bf', 150)), float(data.get('tf', 12)), float(data.get('hw', 150)), float(data.get('tw', 10)))
+        elif section_type == 'Z':
+            res = calc_Z(float(data.get('bf', 100)), float(data.get('tf', 12)), float(data.get('hw', 150)), float(data.get('tw', 8)))
+        elif section_type == 'Box':
+            res = calc_Box(float(data.get('B', 200)), float(data.get('H', 200)), float(data.get('tx', 12)), float(data.get('ty', 10)))
         else:
             return Response({"status": "error", "message": "Geçersiz kesit"}, status=400)
             
