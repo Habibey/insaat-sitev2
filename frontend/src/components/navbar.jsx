@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next'; // EKSİK OLAN IMPORT EKLENDİ
+import { useTranslation } from 'react-i18next'; 
 
 export default function Navbar() {
   const { t, i18n } = useTranslation();
@@ -38,7 +38,7 @@ export default function Navbar() {
       {/* SOL TARAF: LOGO */}
       <Link to="/" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column' }}>
         <span style={{ fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: '1.3rem', color: 'var(--stone)', letterSpacing: '0.15em' }}>
-          HISTECH-SHM
+          HISTECH
         </span>
         <span style={{ fontSize: '0.55rem', color: 'var(--muted)', letterSpacing: '0.2em', textTransform: 'uppercase', marginTop: '2px' }}>
           {i18n.language === 'tr' ? 'Yapısal Sağlık İzleme' : 'Structural Health Monitoring'}

@@ -12,7 +12,7 @@ export default function EkipDetay() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`http://127.0.0.1:8000/api/ekip/${id}/`)
+    axios.get(`${import.meta.env.VITE_API_URL}/ekip/${id}/`)
       .then(res => {
         setKisi(res.data);
         setLoading(false);
@@ -42,7 +42,7 @@ export default function EkipDetay() {
         {/* Sol Taraf: Fotoğraf */}
         <div style={{ flex: '1', minWidth: '250px' }}>
           {kisi.fotograf ? (
-            <img src={`http://127.0.0.1:8000${kisi.fotograf}`} alt={kisi.ad_soyad} style={{ width: '100%', borderRadius: '10px', objectFit: 'cover', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }} />
+            <img src={`${import.meta.env.VITE_API_URL}${kisi.fotograf}`} alt={kisi.ad_soyad} style={{ width: '100%', borderRadius: '10px', objectFit: 'cover', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }} />
           ) : (
             <div style={{ width: '100%', height: '300px', background: '#bdc3c7', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Fotoğraf Yok</div>
           )}

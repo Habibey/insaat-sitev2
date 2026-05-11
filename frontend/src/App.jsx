@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './components/navbar';
+import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Uygulamalar from './pages/Uygulamalar';
 import Ekip from './pages/Ekip';
@@ -8,7 +8,8 @@ import GeodezikUygulama from './pages/GeodezikUygulama';
 import KirisUygulama from './pages/KirisUygulama';
 import BilesikKesit from './pages/BilesikKesit';
 import BirimDonusturucu from './pages/BirimDonusturucu';
-import EkipDetay from './pages/EkipDetay'; // Ekip detay sayfasını import ettik
+import EkipDetay from './pages/EkipDetay'; 
+import GeometrikOzellikler from './pages/GeometrikOzellikler';
 
 
 function App() {
@@ -23,10 +24,11 @@ function App() {
           <Route path="/uygulamalar" element={<Uygulamalar />} />
           <Route path="/ekip" element={<Ekip />} />
           <Route path="/hakkimizda" element={<Hakkimizda />} />
-          <Route path="/uygulama/:id" element={<GeodezikUygulama />} />
           <Route path="/uygulama/kiris-analizi" element={<KirisUygulama />} />
           <Route path="/uygulama/bilesik-kesit" element={<BilesikKesit />} />
           <Route path="/uygulama/birim-cevirici" element={<BirimDonusturucu />} />
+          <Route path="/uygulama/geometrik-ozellikler" element={<GeometrikOzellikler />} />
+          <Route path="/uygulama/:id" element={<GeodezikUygulama />} />
           <Route path="/ekip/:id" element={<EkipDetay />} />
         
          

@@ -7,31 +7,26 @@ export default function Uygulamalar() {
       baslik: "3D Geodezik Modelleme Aracı",
       aciklama: "Karmaşık düğüm ve çubuk sistemlerinin yüksek doğrulukla 3 boyutlu analizi.",
       link: "/uygulama/geodezik", // App.jsx'teki rotan neyse burayı ona göre güncelle
-      etiket: "ÜCRETSİZ"
+   
     },
     {
       baslik: "Kiriş Analizi",
       aciklama: "Farklı yük tipleri ve konumlarıyla kirişlerin eğilme, kesme kuvveti ve moment analizini yapın.",
       link: "/uygulama/kiris-analizi",
-      etiket: "ÜCRETSİZ"
+     
     },
+
     {
       baslik: "Bileşik Kesit Analizi",
       aciklama: "Farklı malzeme özelliklerine sahip bileşik kesitlerin (Steiner teoremi ile) analizini yapın.",
       link: "/uygulama/bilesik-kesit",
-      etiket: "ÜCRETSİZ"
-    },
-    {
-      baslik: "Geometrik Özellikler",
-      aciklama: "2D geometrik şekillerin alan, ağırlık merkezi ve atalet momenti analizi.",
-      link: "/uygulama/geometrik-ozellikler",
-      etiket: "ÜCRETSİZ"
+      
     },
     {
       baslik: "Birim Çevirici",
       aciklama: "Mühendislik projelerinizde ihtiyaç duyabileceğiniz çeşitli birimler arasında hızlı ve güvenilir dönüşümler yapın.",
-      link: "/uygulama/birim-donusturucu",
-      etiket: "ÜCRETSİZ"
+      link: "/uygulama/birim-cevirici",
+   
     }
   ];
 
@@ -65,19 +60,7 @@ export default function Uygulamalar() {
               transition: 'all 0.3s ease'
             }}
           >
-            {/* Etiket (Badge) */}
-            <span style={{ 
-              fontSize: '0.5rem', 
-              letterSpacing: '0.2em', 
-              textTransform: 'uppercase', 
-              padding: '0.2rem 0.5rem', 
-              background: 'rgba(42,122,110,0.2)', 
-              color: '#4ECDC4', 
-              marginBottom: '1rem', 
-              display: 'inline-block' 
-            }}>
-              {uygulama.etiket}
-            </span>
+           
             
             {/* Başlık */}
             <h3 style={{ 

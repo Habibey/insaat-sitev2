@@ -241,6 +241,28 @@ def calc_U(bf, tf, hw, tw):
     p2 = {"label": "Sol Web", "A": tw*hw, "xc": tw/2, "yc": tf+hw/2, "Ix0": tw*hw**3/12, "Iy0": hw*tw**3/12, "rect": {"x0": 0, "y0": tf, "x1": tw, "y1": tf+hw}}
     p3 = {"label": "Sağ Web", "A": tw*hw, "xc": bf-tw/2, "yc": tf+hw/2, "Ix0": tw*hw**3/12, "Iy0": hw*tw**3/12, "rect": {"x0": bf-tw, "y0": tf, "x1": bf, "y1": tf+hw}}
     return steiner([p1, p2, p3])
+
+def calc_Z(bf, tf, hw, tw):
+    H = hw + 2 * tf
+    # Üst başlık (Sağa doğru uzanır)
+    p1 = {"label": "Üst Başlık", "A": bf*tf, "xc": bf/2, "yc": H - tf/2, "Ix0": bf*tf**3/12, "Iy0": tf*bf**3/12, "rect": {"x0": 0, "y0": H-tf, "x1": bf, "y1": H}}
+    # Gövde
+    p2 = {"label": "Gövde", "A": tw*hw, "xc": tw/2, "yc": tf + hw/2, "Ix0": tw*hw**3/12, "Iy0": hw*tw**3/12, "rect": {"x0": 0, "y0": tf, "x1": tw, "y1": tf+hw}}
+    # Alt başlık (Sola doğru uzanır)
+    p3 = {"label": "Alt Başlık", "A": bf*tf, "xc": tw/2 - bf/2, "yc": tf/2, "Ix0": bf*tf**3/12, "Iy0": tf*bf**3/12, "rect": {"x0": tw-bf, "y0": 0, "x1": tw, "y1": tf}}
+    return steiner([p1, p2, p3])
+
+def calc_Box(B, H, tx, ty):
+    hi = H - 2 * tx
+    # Alt plaka
+    p1 = {"label": "Alt Plaka", "A": B*tx, "xc": B/2, "yc": tx/2, "Ix0": B*tx**3/12, "Iy0": tx*B**3/12, "rect": {"x0": 0, "y0": 0, "x1": B, "y1": tx}}
+    # Üst plaka
+    p2 = {"label": "Üst Plaka", "A": B*tx, "xc": B/2, "yc": H - tx/2, "Ix0": B*tx**3/12, "Iy0": tx*B**3/12, "rect": {"x0": 0, "y0": H-tx, "x1": B, "y1": H}}
+    # Sol web
+    p3 = {"label": "Sol Web", "A": ty*hi, "xc": ty/2, "yc": tx + hi/2, "Ix0": ty*hi**3/12, "Iy0": hi*ty**3/12, "rect": {"x0": 0, "y0": tx, "x1": ty, "y1": H-tx}}
+    # Sağ web
+    p4 = {"label": "Sağ Web", "A": ty*hi, "xc": B - ty/2, "yc": tx + hi/2, "Ix0": ty*hi**3/12, "Iy0": hi*ty**3/12, "rect": {"x0": B-ty, "y0": tx, "x1": B, "y1": H-tx}}
+    return steiner([p1, p2, p3, p4])
 # --- BİRİM DÖNÜŞTÜRÜCÜ FONKSİYONLARI ---
 
 CATEGORIES = {
@@ -324,3 +346,30 @@ def get_all_conversions(value, from_unit, cat_key):
         except:
             pass
     return results
+
+
+
+def calculate_section_properties(shape, params):
+    res = {}
+    if shape == "rectangle":
+        b, h = float(params.get('b', 0)), float(params.get('h', 0))
+        res = {
+            "A": b * h,
+            "xc": b / 2,
+            "yc": h / 2,
+            "Ix0": (b * h**3) / 12,
+            "Iy0": (h * b**3) / 12,
+            "Ip": ((b * h**3) / 12) + ((h * b**3) / 12)
+        }
+    elif shape == "circle":
+        r = float(params.get('r', 0))
+        res = {
+            "A": math.pi * r**2,
+            "xc": r,
+            "yc": r,
+            "Ix0": (math.pi * r**4) / 4,
+            "Iy0": (math.pi * r**4) / 4,
+            "Ip": (math.pi * r**4) / 2
+        }
+    return res
+
