@@ -12,7 +12,7 @@ export default function EkipDetay() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/api/ekip/${id}/`)
+    axios.get(`${import.meta.env.VITE_API_URL}/ekip/${id}/`)
       .then(res => {
         setKisi(res.data);
         setLoading(false);

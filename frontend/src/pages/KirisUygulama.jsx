@@ -40,7 +40,7 @@ export default function KirisUygulama() {
     if (loads.length === 0) return alert("Lütfen en az bir yük ekleyin!");
     setLoading(true);
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/calculate-beam/`, { L, loads });
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/calculate-beam/`, { L, loads });
       setResult(response.data);
     } catch (error) {
       console.error("Hata:", error);

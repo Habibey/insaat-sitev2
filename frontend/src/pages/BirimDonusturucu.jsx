@@ -9,7 +9,7 @@ export default function BirimDonusturucu() {
 
   // Sayfa yüklendiğinde kategorileri Backend'den çek
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/api/unit-converter/`)
+    axios.get(`${import.meta.env.VITE_API_URL}/unit-converter/`)
       .then(res => {
         setCategories(res.data.categories);
         // İlk kategori yüklendiğinde varsayılan birimleri ayarla

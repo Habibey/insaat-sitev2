@@ -7,12 +7,10 @@ COPY . .
 RUN npm run build
 
 # 2. AŞAMA: Nginx ile yayına alma
+
 FROM nginx:alpine
-# Bir önceki aşamada derlenen 'dist' klasörünü Nginx'in yayın klasörüne kopyala
 COPY --from=build /app/dist /usr/share/nginx/html
-
-# Nginx 80 portunda çalışır
+# Kendi konfigürasyonumuzu kopyalıyoruz
+COPY nginx.conf /etc/nginx/conf.d/default.conf 
 EXPOSE 80
-
-# Nginx'i başlat
 CMD ["nginx", "-g", "daemon off;"]
