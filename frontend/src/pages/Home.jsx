@@ -102,11 +102,15 @@ export default function Home() {
              <p className="tool-desc" style={{ fontSize: '0.6rem', lineHeight: 1.8, color: 'var(--muted)' }}>{t('app_beam_desc')}</p>
           </Link>
 
-          <Link to="/uygulama/geometrik-ozellikler" className="tool-card" style={{ border: '1px solid var(--border-color)', padding: '2rem', background: 'rgba(200,185,154,0.02)', textDecoration: 'none', display: 'block' }}>
-            <span className="tool-badge badge-free" style={{ fontSize: '0.5rem', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '0.2rem 0.5rem', background: 'rgba(42,122,110,0.2)', color: '#4ECDC4', marginBottom: '1rem', display: 'inline-block' }}>{t('badge_free')}</span>
-            <h3 className="tool-title" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.2rem', color: 'var(--text-main)', marginBottom: '0.5rem' }}>{t('app_geo_title')}</h3>
-            <p className="tool-desc" style={{ fontSize: '0.6rem', lineHeight: 1.8, color: 'var(--muted)' }}>{t('app_geo_desc')}</p>
+           <Link to="/uygulama/birim-cevirici" className="tool-card" style={{ border: '1px solid var(--border-color)', padding: '2rem', background: 'rgba(200,185,154,0.02)', textDecoration: 'none', display: 'block' }}>
+             <span className="tool-badge badge-free" style={{ fontSize: '0.5rem', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '0.2rem 0.5rem', background: 'rgba(42,122,110,0.2)', color: '#4ECDC4', marginBottom: '1rem', display: 'inline-block' }}>{t('badge_free')}</span>
+             <h3 className="tool-title" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.2rem', color: 'var(--text-main)', marginBottom: '0.5rem' }}>{t('app_unit_title')}</h3>
+             <p className="tool-desc" style={{ fontSize: '0.6rem', lineHeight: 1.8, color: 'var(--muted)' }}>{t('app_unit_desc')}</p>
           </Link>
+
+
+
+    
 
           <Link to="/uygulama/bilesik-kesit" className="tool-card" style={{ border: '1px solid var(--border-color)', padding: '2rem', background: 'rgba(200,185,154,0.02)', textDecoration: 'none', display: 'block' }}>
             <span className="tool-badge badge-free" style={{ fontSize: '0.5rem', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '0.2rem 0.5rem', background: 'rgba(42,122,110,0.2)', color: '#4ECDC4', marginBottom: '1rem', display: 'inline-block' }}>{t('badge_free')}</span>

@@ -139,26 +139,45 @@ export default function BilesikKesit() {
         {result ? (
           <>
             {/* Sonuç Kartları */}
+            {/* Sonuç Kartları */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '15px', marginBottom: '15px' }}>
               <div style={{...cardStyle, borderLeft: '4px solid #f1c40f', marginBottom: 0}}>
-                <p style={{ margin: 0, color: '#7f8c8d', fontSize: '13px' }}>TOPLAM ALAN (A)</p>
-                <h3 style={{ margin: '5px 0 0 0' }}>{result.A_tot?.toFixed(1) ?? result[0]?.toFixed(1)} <small>mm²</small></h3>
+                <p style={{ margin: 0, color: '#7f8c8d', fontSize: '13px', fontWeight: 'bold' }}>TOPLAM ALAN (A)</p>
+                <h3 style={{ margin: '5px 0 0 0' }}>{result.A_tot?.toFixed(1) ?? result[0]?.toFixed(1)} <small style={{ fontSize: '14px', color: '#95a5a6' }}>mm²</small></h3>
               </div>
+              
               <div style={{...cardStyle, borderLeft: '4px solid #e74c3c', marginBottom: 0}}>
-                <p style={{ margin: 0, color: '#7f8c8d', fontSize: '13px' }}>AĞ. MERKEZİ (x̄, ȳ)</p>
+                <p style={{ margin: 0, color: '#7f8c8d', fontSize: '13px', fontWeight: 'bold' }}>AĞ. MERKEZİ (x̄, ȳ)</p>
                 <h3 style={{ margin: '5px 0 0 0' }}>
                   x: {result.xc?.toFixed(1) ?? result[1]?.toFixed(1)}<br/>
-                  y: {result.yc?.toFixed(1) ?? result[2]?.toFixed(1)} <small>mm</small>
+                  y: {result.yc?.toFixed(1) ?? result[2]?.toFixed(1)} <small style={{ fontSize: '14px', color: '#95a5a6' }}>mm</small>
                 </h3>
               </div>
+              
               <div style={{...cardStyle, borderLeft: '4px solid #3498db', marginBottom: 0}}>
-                <p style={{ margin: 0, color: '#7f8c8d', fontSize: '13px' }}>ATALET (Ix, Iy)</p>
+                <p style={{ margin: 0, color: '#7f8c8d', fontSize: '13px', fontWeight: 'bold' }}>ATALET MOMENTİ (Ix, Iy)</p>
                 <h3 style={{ margin: '5px 0 0 0' }}>
                   Ix: {result.Ix_tot?.toExponential(2) ?? result[3]?.toExponential(2)}<br/>
                   Iy: {result.Iy_tot?.toExponential(2) ?? result[4]?.toExponential(2)}
                 </h3>
               </div>
+
+              {/* YENİ EKLENEN ATALET YARIÇAPI KARTLARI */}
+              <div style={{...cardStyle, borderLeft: '4px solid #9b59b6', marginBottom: 0}}>
+                <p style={{ margin: 0, color: '#7f8c8d', fontSize: '13px', fontWeight: 'bold' }}>ATALET YARIÇAPI (ix)</p>
+                <h3 style={{ margin: '5px 0 0 0' }}>
+                  {Math.sqrt((result.Ix_tot ?? result[3]) / (result.A_tot ?? result[0])).toFixed(2)} <small style={{ fontSize: '14px', color: '#95a5a6' }}>mm</small>
+                </h3>
+              </div>
+
+              <div style={{...cardStyle, borderLeft: '4px solid #9b59b6', marginBottom: 0}}>
+                <p style={{ margin: 0, color: '#7f8c8d', fontSize: '13px', fontWeight: 'bold' }}>ATALET YARIÇAPI (iy)</p>
+                <h3 style={{ margin: '5px 0 0 0' }}>
+                  {Math.sqrt((result.Iy_tot ?? result[4]) / (result.A_tot ?? result[0])).toFixed(2)} <small style={{ fontSize: '14px', color: '#95a5a6' }}>mm</small>
+                </h3>
+              </div>
             </div>
+           
             
             {/* Kesit Çizimi */}
             <div style={cardStyle}>

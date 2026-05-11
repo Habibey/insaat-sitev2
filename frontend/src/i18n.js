@@ -50,7 +50,12 @@ const resources = {
       "form_msg": "Mesaj",
       "btn_send": "Mesaj Gönder",
       "footer_copy": "© 2026 HISTECH-SHM Araştırma Grubu · Tüm hakları saklıdır.",
-      "ekip_baslik": "Ekip Üyelerimiz"
+      "ekip_baslik": "Ekip Üyelerimiz",
+      "geometrik_ozellikler_baslik": "Geometrik Özellikler Hesaplayıcı",
+      "dikdortgen": "Dikdörtgen",
+      "daire": "Daire",
+      "app_unit_title": "Birim Çevirici",
+      "app_unit_desc": "Mühendislik projelerinizde ihtiyaç duyabileceğiniz çeşitli birimler arasında hızlı ve güvenilir dönüşümler yapın."
     }
   },
   en: {
@@ -101,8 +106,15 @@ const resources = {
       "form_msg": "Message",
       "btn_send": "Send Message",
       "footer_copy": "© 2026 HISTECH-SHM Research Group · All rights reserved.",
-      "ekip_baslik": "Our Team Members"
-    }
+      "ekip_baslik": "Our Team Members",
+      "geometrik_ozellikler_baslik": "Geometric Properties Calculator",
+      "dikdortgen": "Rectangle",
+      "daire": "Circle",
+      "app_unit_title": "Unit Converter",
+      "app_unit_desc": "Convert between different units of length, area, volume, and mass commonly used in engineering."
+    
+
+          }
   }
 };
 

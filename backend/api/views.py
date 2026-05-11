@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .utils import compute_beam_analysis, generate_dome_geometry, grpdet ,steiner,calc_I,calc_T,calc_L,calc_U ,calc_Z,calc_Box, CATEGORIES, to_si, from_si, get_all_conversions # Eski kod
+from .utils import compute_beam_analysis, generate_dome_geometry, grpdet ,steiner,calc_I,calc_T,calc_L,calc_U ,calc_Z,calc_Box, CATEGORIES, to_si, from_si, get_all_conversions, calculate_section_properties
 from .models import AkademikPersonel, Hakkimizda 
 from .serializers import  AkademikPersonelSerializer, HakkimizdaSerializer
 import traceback
@@ -196,5 +196,22 @@ def unit_converter(request):
         return Response({"status": "error", "message": str(e)}, status=400)    
     
     
+
+@api_view(['POST'])
+def geometrik_hesapla(request):
+    try:
+        data = request.data
+        shape = data.get('shape', 'rectangle')
+        params = data.get('params', {})
+        
+        # utils.py'daki matematiği çağırıyoruz
+        res = calculate_section_properties(shape, params)
+        
+        return Response({"status": "success", "data": res})
+    except Exception as e:
+        return Response({"status": "error", "message": str(e)}, status=400)
+    
+    
+
 
 

@@ -15,12 +15,7 @@ export default function Uygulamalar() {
       link: "/uygulama/kiris-analizi",
      
     },
-    {
-      baslik: "Geometrik Özellikler",
-      aciklama: "2D geometrik şekillerin alan, ağırlık merkezi ve atalet momenti analizi.",
-      link: "/uygulama/geometrik-ozellikler",
-  
-    },
+
     {
       baslik: "Bileşik Kesit Analizi",
       aciklama: "Farklı malzeme özelliklerine sahip bileşik kesitlerin (Steiner teoremi ile) analizini yapın.",

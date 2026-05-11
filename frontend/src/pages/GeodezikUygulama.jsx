@@ -62,7 +62,12 @@ export default function GeodezikUygulama() {
     layoutConfig = {
       xaxis: { visible: false }, yaxis: { visible: false }, zaxis: { visible: false },
       aspectmode: 'manual', aspectratio: { x: xRange, y: yRange, z: zRange },
-      camera: { eye: { x: 1.5, y: 1.5, z: 1.2 } }
+      camera: { 
+        // KAMERA UZAKLAŞTIRILDI (eye değerleri büyütüldü)
+        eye: { x: 2.6, y: 2.6, z: 1.5 },
+        // Kubbenin ekrana tam ortalanması için merkez hafif aşağı alındı
+        center: { x: 0, y: 0, z: -0.15 } 
+      }
     };
 
     if (groupStyle === 'Colored' && result.groups_draw) {
@@ -198,7 +203,6 @@ export default function GeodezikUygulama() {
               {i18n.language === 'tr' ? 'Geodezik Kubbe Parametreleri' : 'Geodesic Dome Parameters'}
             </h2>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-              {/* Inputların stillerini index.css'e bıraktık, sadece layout verdik */}
               <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
                 <label><b>Type (3-9):</b></label>
                 <input type="number" name="type" value={formData.type} onChange={handleChange} style={{ width: '100%' }} />
@@ -268,11 +272,12 @@ export default function GeodezikUygulama() {
                 title: i18n.language === 'tr' ? `3D Geodezik Model (${result.info_summary.dome_type})` : `3D Geodesic Model (${result.info_summary.dome_type})`,
                 margin: { l: 0, r: 0, b: 0, t: 40 },
                 showlegend: false, scene: layoutConfig,
-                paper_bgcolor: 'rgba(0,0,0,0)', // Plotly arka planını transparan yaptık
+                paper_bgcolor: 'rgba(0,0,0,0)',
                 plot_bgcolor: 'rgba(0,0,0,0)',
-                font: { color: 'var(--text-main)' } // Plotly yazı renklerini temaya uyarladık
+                font: { color: 'var(--text-main)' } 
               }}
               style={{ width: '100%' }}
+              config={{ responsive: true }}
             />
           ) : (
             <div style={{ height: '600px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--muted)', border: '2px dashed var(--border-color)', borderRadius: '8px' }}>
