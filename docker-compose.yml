@@ -30,6 +30,8 @@ services:
       - ./backend:/app
     restart: always
 
+    command: gunicorn core.wsgi:application --bind 0.0.0.0:8000
+
   # 3. React Kapsülü
   frontend:
     build: ./frontend
