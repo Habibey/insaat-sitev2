@@ -13,8 +13,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-f7kdg!#w%w$5()
 DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 # Dışarıdan gelecek isteklere izin verilecek IP/Domainler. Virgüle göre ayırıp listeye çeviriyoruz.
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "*").split(",")
-
+ALLOWED_HOSTS = ['*']  # Geliştirme aşamasında tüm hostlara izin veriyoruz. Üretimde bunu sınırlandırmalısın! 
 
 # 2. VERİTABANI AYARLARI (Dinamik hale getirildi)
 DATABASES = {
