@@ -32,5 +32,4 @@ COPY . .
 EXPOSE 8000
 
 # Projeyi Gunicorn ile çalıştır (Geliştirme sunucusu yerine)
-# DİKKAT: "proje_adi" kısmını kendi Django ana proje klasörünün (wsgi.py'nin içinde olduğu klasör) adıyla değiştirmelisin.
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "proje_adi.wsgi:application"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "3", "core.wsgi:application"]
