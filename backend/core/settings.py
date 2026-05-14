@@ -10,7 +10,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-f7kdg!#w%w$5()_(*0dp+*y_fzu=c+a3@+-(0vzizb9dds23e)')
 
 # Sunucuda (Docker'da) bunu 'False' yapacağız. Localde 'True' kalacak.
-DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
+#DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
+DEBUG = True
 
 # Dışarıdan gelecek isteklere izin verilecek IP/Domainler. Virgüle göre ayırıp listeye çeviriyoruz.
 ALLOWED_HOSTS = ['*']  # Geliştirme aşamasında tüm hostlara izin veriyoruz. Üretimde bunu sınırlandırmalısın! 
