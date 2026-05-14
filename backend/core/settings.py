@@ -106,4 +106,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Test aşamasında Cloudflare tünellerine izin veriyoruz
-CSRF_TRUSTED_ORIGINS = ['https://*.trycloudflare.com']
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.trycloudflare.com',
+    'http://10.80.28.38',
+    'http://localhost',
+    'http://127.0.0.1'
+]
