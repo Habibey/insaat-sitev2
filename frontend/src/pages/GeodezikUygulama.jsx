@@ -35,7 +35,7 @@ export default function GeodezikUygulama() {
     setLoading(true);
     setResult(null); 
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/calculate/`, formData);
+      const response = await axios.post(`/api/calculate/`, formData);
       setResult(response.data);
     } catch (error) {
       console.error("Hesaplama hatası:", error);

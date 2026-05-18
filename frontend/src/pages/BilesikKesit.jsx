@@ -20,7 +20,7 @@ export default function BilesikKesit() {
       const payload = { section };
       Object.keys(inputs).forEach(key => payload[key] = parseFloat(inputs[key]));
 
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/calculate-composite/`, payload);
+      const response = await axios.post(`/api/calculate-composite/`, payload);
       
       // NOT: Django utils.py içindeki steiner() bir tuple (dizi) dönüyorsa 
       // backend'den gelen veri array olabilir. Eğer obje formatına çevirdiysen bu kısım sorunsuz çalışır.
