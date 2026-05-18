@@ -17,7 +17,7 @@ export default function GeometrikOzellikler() {
       ? { b: inputs.b, h: inputs.h } 
       : { r: inputs.r };
 
-    axios.post(`${import.meta.env.VITE_API_URL}/geometrik-hesapla/`, { shape, params })
+    axios.post(`/api/geometrik-hesapla/`, { shape, params })
       .then(res => {
         if (res.data.status === 'success') {
           setResult(res.data.data);

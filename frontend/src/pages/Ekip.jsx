@@ -10,7 +10,7 @@ export default function Ekip() {
 
   // Sayfa yüklendiğinde Django'dan verileri getir
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/ekip/`)
+    axios.get(`/api/ekip/`)
       .then(response => {
         // İŞTE BÜYÜK SIRRI BURASI ÇÖZECEK:
         console.log("DJANGO'DAN GELEN VERİ:", response.data); 
@@ -42,7 +42,7 @@ export default function Ekip() {
               {/* Fotoğraf varsa göster */}
               {kisi.fotograf && (
                 <img 
-                  src={`${import.meta.env.VITE_API_URL}${kisi.fotograf}`} 
+                  src={kisi.fotograf} 
                   alt={kisi.ad_soyad} 
                   style={{ width: '100%', height: '250px', objectFit: 'cover', borderRadius: '8px' }} 
                 />
