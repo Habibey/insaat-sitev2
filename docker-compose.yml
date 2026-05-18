@@ -12,6 +12,8 @@ services:
     ports:
       - "5432:5432"
     restart: always
+    volumes:
+      - pg_data:/var/lib/postgresql/data  # YENİ EKLENEN KISIM: Veritabanı çelik kasası
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d insaat-db"]
       interval: 5s
@@ -52,7 +54,8 @@ services:
       - media_volume:/app/media         # Nginx'in yüklenen fotoğrafları okuyabilmesi için köprü
     restart: always
 
-# 4. Ortak Köprülerin (Named Volumes) Tanımlanması (Hayati Eksik Burasıydı)
+# 4. Ortak Köprülerin (Named Volumes) Tanımlanması
 volumes:
   static_volume:
   media_volume:
+  pg_data:  # YENİ EKLENEN KISIM: Verilerin diskte mühürleneceği alan
