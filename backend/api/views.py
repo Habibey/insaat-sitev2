@@ -1,13 +1,15 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from .utils import compute_beam_analysis, generate_dome_geometry, grpdet ,steiner,calc_I,calc_T,calc_L,calc_U ,calc_Z,calc_Box, CATEGORIES, to_si, from_si, get_all_conversions, calculate_section_properties
 from .models import AkademikPersonel, Hakkimizda 
 from .serializers import  AkademikPersonelSerializer, HakkimizdaSerializer
 import traceback
-import numpy as np # Numpy'ı matematiksel özetler için kullanacağız
-
+import numpy as np 
 
 @api_view(['POST'])
+@authentication_classes([]) # CSRF ve Token kontrolünü kapatır
+@permission_classes([AllowAny]) # Herkese izin verir
 def calculate_dome(request):
     try:
         data = request.data 
@@ -36,7 +38,6 @@ def calculate_dome(request):
         }
 
         # B. Düğümler Tablosu (df_nodes kısmı)
-        # Veri formatı: [[NodeID, X, Y, Z], ...] -> Saf Python listesine çevriliyor
         nodes_table = []
         for node in dome['nodes']:
             nodes_table.append({
@@ -47,7 +48,6 @@ def calculate_dome(request):
             })
 
         # C. Elemanlar Tablosu (df_members kısmı)
-        # Veri formatı: [[MemID, Node1, Node2, ...], ...]
         members_table = []
         for mem in dome['members']:
             members_table.append({
@@ -68,7 +68,6 @@ def calculate_dome(request):
             "info_summary": info_summary,
             "nodes_table": nodes_table,
             "members_table": members_table,
-            # Çizim için gerekli ham veriler (Daha temiz)
             "nodes_raw": dome['nodes'].tolist(), 
             "members_raw": dome['members'].tolist(),
             "groups_draw": groups_dict
@@ -80,22 +79,30 @@ def calculate_dome(request):
         print("--- HATA BİTİŞİ ---\n")
         return Response({"status": "error", "message": str(e)}, status=400)
 
-@api_view(['GET']) # React bizden sadece veri 'isteyeceği' için GET kullanıyoruz
+
+@api_view(['GET'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def ekip_listesi(request):
-    # Sırasına göre tüm personeli veritabanından çek
     personeller = AkademikPersonel.objects.all().order_by('sira')
-    # Verileri JSON formatına çevir (many=True çünkü birden fazla kişi olabilir)
     serializer = AkademikPersonelSerializer(personeller, many=True)
     return Response(serializer.data)
+
+
 @api_view(['GET'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def hakkimizda(request):
-   # Veritabanındaki ilk (ve tek) hakkımızda kaydını alır
     hakkimizda = Hakkimizda.objects.first()
     if hakkimizda:
         serializer = HakkimizdaSerializer(hakkimizda)
         return Response(serializer.data)
     return Response({"error": "İçerik henüz eklenmedi."}, status=404)
+
+
 @api_view(['GET'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def ekip_detay(request, pk):
     try:
         personel = AkademikPersonel.objects.get(pk=pk)
@@ -105,8 +112,9 @@ def ekip_detay(request, pk):
         return Response({"error": "Personel bulunamadı."}, status=404)
         
 
-
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def calculate_beam(request):
     try:
         data = request.data
@@ -115,7 +123,6 @@ def calculate_beam(request):
         
         x, V, M, RA, RB, total_F = compute_beam_analysis(L, loads)
         
-        # Kritik noktaları bul
         idx_vmax, idx_vmin = np.argmax(V), np.argmin(V)
         idx_mmax = np.argmax(np.abs(M))
 
@@ -142,6 +149,8 @@ def calculate_beam(request):
         return Response({"status": "error", "message": str(e)}, status=400)
     
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def calculate_composite(request):
     try:
         data = request.data
@@ -165,17 +174,15 @@ def calculate_composite(request):
         return Response({"status": "success", "data": res})
     except Exception as e:
         return Response({"status": "error", "message": str(e)}, status=400)    
-# backend/api/views.py içine eklenecek
-from .utils import CATEGORIES, to_si, from_si, get_all_conversions
 
 @api_view(['POST', 'GET'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def unit_converter(request):
-    # GET isteği gelirse React'e kategorileri ve birimleri gönder (Dropdown'lar için)
     if request.method == 'GET':
         cats = {k: {"tr": v["tr"], "en": v["en"], "units": list(v["units"].keys())} for k, v in CATEGORIES.items()}
         return Response({"status": "success", "categories": cats})
     
-    # POST isteği gelirse çeviri hesaplamasını yap
     try:
         data = request.data
         cat = data.get('category', 'length')
@@ -195,23 +202,17 @@ def unit_converter(request):
     except Exception as e:
         return Response({"status": "error", "message": str(e)}, status=400)    
     
-    
-
 @api_view(['POST'])
+@authentication_classes([])
+@permission_classes([AllowAny])
 def geometrik_hesapla(request):
     try:
         data = request.data
         shape = data.get('shape', 'rectangle')
         params = data.get('params', {})
         
-        # utils.py'daki matematiği çağırıyoruz
         res = calculate_section_properties(shape, params)
         
         return Response({"status": "success", "data": res})
     except Exception as e:
         return Response({"status": "error", "message": str(e)}, status=400)
-    
-    
-
-
-
