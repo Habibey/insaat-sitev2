@@ -50,82 +50,77 @@ export default function Home() {
       </div>
 
       {/* 1. ARAŞTIRMA ALANLARI */}
-      <section id="research" style={{ padding: '6rem 4rem', maxWidth: '1400px', margin: '0 auto' }}>
-        <div className="section-header" style={{ display: 'flex', alignItems: 'flex-end', gap: '2rem', marginBottom: '4rem' }}>
-          {/* Büyük Numaralar koymak isterseniz bu div'in içine ekleyebilirsiniz, CSS ile opaklığını düşürüp arka plana atabilirsiniz. */}
-          <div className="section-num" style={{ fontFamily: "'Syne', sans-serif", fontSize: '5rem', fontWeight: 800, color: 'rgba(200,185,154,0.08)', lineHeight: 1, flexShrink: 0 }}></div>
+      <section id="research">
+        <div className="section-header">
+          <div className="section-num"></div>
           <div>
-            <div className="section-label" style={{ fontSize: '0.58rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--rust)', marginBottom: '0.5rem' }}>{t('sec_research_label')}</div>
+            <div className="section-label">{t('sec_research_label')}</div>
             <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('sec_research_title').replace(' ', '<br/>') }}></h2>
           </div>
         </div>
         
-        <div className="research-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: 'var(--border-color)', border: '1px solid var(--border-color)' }}>
-          <div className="research-card" style={{ background: 'var(--bg-card)', padding: '2.5rem', position: 'relative' }}>
-            <span className="card-icon" style={{ fontSize: '2rem', marginBottom: '1.5rem', display: 'block' }}>🏛️</span>
-            <h3 className="card-title" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.4rem', color: 'var(--stone)', marginBottom: '0.8rem' }}>{t('res_1_title')}</h3>
-            <p className="card-desc" style={{ fontSize: '0.62rem', lineHeight: 1.9, color: 'var(--muted)' }}>{t('res_1_desc')}</p>
+        <div className="research-grid">
+          <div className="research-card">
+            <span className="card-icon">🏛️</span>
+            <h3 className="card-title">{t('res_1_title')}</h3>
+            <p className="card-desc">{t('res_1_desc')}</p>
           </div>
-          <div className="research-card" style={{ background: 'var(--bg-card)', padding: '2.5rem', position: 'relative' }}>
-            <span className="card-icon" style={{ fontSize: '2rem', marginBottom: '1.5rem', display: 'block' }}>📡</span>
-            <h3 className="card-title" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.4rem', color: 'var(--stone)', marginBottom: '0.8rem' }}>{t('res_2_title')}</h3>
-            <p className="card-desc" style={{ fontSize: '0.62rem', lineHeight: 1.9, color: 'var(--muted)' }}>{t('res_2_desc')}</p>
+          <div className="research-card">
+            <span className="card-icon">📡</span>
+            <h3 className="card-title">{t('res_2_title')}</h3>
+            <p className="card-desc">{t('res_2_desc')}</p>
           </div>
-          <div className="research-card" style={{ background: 'var(--bg-card)', padding: '2.5rem', position: 'relative' }}>
-            <span className="card-icon" style={{ fontSize: '2rem', marginBottom: '1.5rem', display: 'block' }}>🖨️</span>
-            <h3 className="card-title" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.4rem', color: 'var(--stone)', marginBottom: '0.8rem' }}>{t('res_3_title')}</h3>
-            <p className="card-desc" style={{ fontSize: '0.62rem', lineHeight: 1.9, color: 'var(--muted)' }}>{t('res_3_desc')}</p>
+          <div className="research-card">
+            <span className="card-icon">🖨️</span>
+            <h3 className="card-title">{t('res_3_title')}</h3>
+            <p className="card-desc">{t('res_3_desc')}</p>
           </div>
         </div>
       </section>
 
       {/* 2. UYGULAMALAR (TOOLS) */}
-      <section id="apps" style={{ padding: '6rem 4rem', maxWidth: '1400px', margin: '0 auto' }}>
-        <div className="section-header" style={{ display: 'flex', alignItems: 'flex-end', gap: '2rem', marginBottom: '4rem' }}>
-          <div className="section-num" style={{ fontFamily: "'Syne', sans-serif", fontSize: '5rem', fontWeight: 800, color: 'rgba(200,185,154,0.08)', lineHeight: 1, flexShrink: 0 }}></div>
+      <section id="apps">
+        <div className="section-header">
+          <div className="section-num"></div>
           <div>
-            <div className="section-label" style={{ fontSize: '0.58rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--rust)', marginBottom: '0.5rem' }}>{t('sec_apps_label')}</div>
+            <div className="section-label">{t('sec_apps_label')}</div>
             <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('sec_apps_title').replace(' ', '<br/>') }}></h2>
           </div>
         </div>
         
-        <div className="tools-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem' }}>
-          <Link to="/uygulamalar" className="tool-card" style={{ border: '1px solid var(--border-color)', padding: '2rem', background: 'rgba(200,185,154,0.02)', textDecoration: 'none', display: 'block' }}>
-            <span className="tool-badge badge-free" style={{ fontSize: '0.5rem', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '0.2rem 0.5rem', background: 'rgba(42,122,110,0.2)', color: '#4ECDC4', marginBottom: '1rem', display: 'inline-block' }}>{t('badge_free')}</span>
-            <h3 className="tool-title" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.2rem', color: 'var(--text-main)', marginBottom: '0.5rem' }}>{t('app_all_title')}</h3>
-            <p className="tool-desc" style={{ fontSize: '0.6rem', lineHeight: 1.8, color: 'var(--muted)' }}>{t('app_all_desc')}</p>
+        <div className="tools-grid">
+          <Link to="/uygulamalar" className="tool-card">
+            <span className="tool-badge badge-free">{t('badge_free')}</span>
+            <h3 className="tool-title">{t('app_all_title')}</h3>
+            <p className="tool-desc">{t('app_all_desc')}</p>
           </Link>
           
-          <Link to="/uygulama/kiris-analizi" className="tool-card" style={{ border: '1px solid var(--border-color)', padding: '2rem', background: 'rgba(200,185,154,0.02)', textDecoration: 'none', display: 'block' }}>
-             <span className="tool-badge badge-free" style={{ fontSize: '0.5rem', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '0.2rem 0.5rem', background: 'rgba(42,122,110,0.2)', color: '#4ECDC4', marginBottom: '1rem', display: 'inline-block' }}>{t('badge_free')}</span>
-             <h3 className="tool-title" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.2rem', color: 'var(--text-main)', marginBottom: '0.5rem' }}>{t('app_beam_title')}</h3>
-             <p className="tool-desc" style={{ fontSize: '0.6rem', lineHeight: 1.8, color: 'var(--muted)' }}>{t('app_beam_desc')}</p>
+          <Link to="/uygulama/kiris-analizi" className="tool-card">
+             <span className="tool-badge badge-free">{t('badge_free')}</span>
+             <h3 className="tool-title">{t('app_beam_title')}</h3>
+             <p className="tool-desc">{t('app_beam_desc')}</p>
           </Link>
 
-           <Link to="/uygulama/birim-cevirici" className="tool-card" style={{ border: '1px solid var(--border-color)', padding: '2rem', background: 'rgba(200,185,154,0.02)', textDecoration: 'none', display: 'block' }}>
-             <span className="tool-badge badge-free" style={{ fontSize: '0.5rem', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '0.2rem 0.5rem', background: 'rgba(42,122,110,0.2)', color: '#4ECDC4', marginBottom: '1rem', display: 'inline-block' }}>{t('badge_free')}</span>
-             <h3 className="tool-title" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.2rem', color: 'var(--text-main)', marginBottom: '0.5rem' }}>{t('app_unit_title')}</h3>
-             <p className="tool-desc" style={{ fontSize: '0.6rem', lineHeight: 1.8, color: 'var(--muted)' }}>{t('app_unit_desc')}</p>
+           <Link to="/uygulama/birim-cevirici" className="tool-card">
+             <span className="tool-badge badge-free">{t('badge_free')}</span>
+             <h3 className="tool-title">{t('app_unit_title')}</h3>
+             <p className="tool-desc">{t('app_unit_desc')}</p>
           </Link>
 
-
-
-    
-
-          <Link to="/uygulama/bilesik-kesit" className="tool-card" style={{ border: '1px solid var(--border-color)', padding: '2rem', background: 'rgba(200,185,154,0.02)', textDecoration: 'none', display: 'block' }}>
-            <span className="tool-badge badge-free" style={{ fontSize: '0.5rem', letterSpacing: '0.2em', textTransform: 'uppercase', padding: '0.2rem 0.5rem', background: 'rgba(42,122,110,0.2)', color: '#4ECDC4', marginBottom: '1rem', display: 'inline-block' }}>{t('badge_free')}</span>
-            <h3 className="tool-title" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: '1.2rem', color: 'var(--text-main)', marginBottom: '0.5rem' }}>{t('app_sec_title')}</h3>
-            <p className="tool-desc" style={{ fontSize: '0.6rem', lineHeight: 1.8, color: 'var(--muted)' }}>{t('app_sec_desc')}</p>
+          <Link to="/uygulama/bilesik-kesit" className="tool-card">
+            <span className="tool-badge badge-free">{t('badge_free')}</span>
+            <h3 className="tool-title">{t('app_sec_title')}</h3>
+            <p className="tool-desc">{t('app_sec_desc')}</p>
           </Link>
         </div>
       </section>
 
       {/* 3. EKİP */}
-      <section id="ekip" style={{ padding: '6rem 4rem', maxWidth: '1400px', margin: '0 auto' }}>
-        <div className="section-header" style={{ display: 'flex', alignItems: 'flex-end', gap: '2rem', marginBottom: '4rem' }}>
-          <div className="section-num" style={{ fontFamily: "'Syne', sans-serif", fontSize: '5rem', fontWeight: 800, color: 'rgba(200,185,154,0.08)', lineHeight: 1, flexShrink: 0 }}></div>
+      <section id="ekip">
+        <div className="section-header">
+          <div className="section-num"></div>
           <div>
-            <div className="section-label" style={{ fontSize: '0.58rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--rust)', marginBottom: '0.5rem' }}>{t('sec_team_label')}</div>
+            <div className="section-label">{t('sec_team_label')}</div>
             <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('sec_team_title').replace(' ', '<br/>') }}></h2>
           </div>
         </div>
@@ -133,40 +128,51 @@ export default function Home() {
       </section>
 
       {/* 4. HAKKIMIZDA */}
-      <section id="about" style={{ padding: '6rem 4rem', maxWidth: '1400px', margin: '0 auto' }}>
+      <section id="about">
          <Hakkimizda />
       </section>
 
       {/* 5. İLETİŞİM */}
-      <section id="contact" style={{ padding: '6rem 4rem', maxWidth: '1400px', margin: '0 auto', borderTop: '1px solid var(--border-color)' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem' }}>
+      <section id="contact">
+        <div className="contact-section-container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem' }}>
           <div>
-            <div className="section-label" style={{ fontSize: '0.58rem', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'var(--rust)', marginBottom: '0.5rem' }}>{t('sec_contact_label')}</div>
+            <div className="section-label">{t('sec_contact_label')}</div>
             <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('sec_contact_title').replace(' ', '<br/>') }}></h2>
-            <div className="contact-info" style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
-              <div className="contact-row" style={{ display: 'flex', gap: '1rem' }}>
-                <span className="contact-icon" style={{ color: 'var(--rust)' }}>📍</span>
-                <div className="contact-detail" style={{ fontSize: '0.62rem', color: 'var(--muted)' }}><strong style={{ color: 'var(--stone)', display: 'block', textTransform: 'uppercase' }}>{t('contact_address')}</strong>{t('contact_address_val')}</div>
+            <div className="contact-info">
+              <div className="contact-row">
+                <span className="contact-icon">📍</span>
+                <div className="contact-detail"><strong>{t('contact_address')}</strong>{t('contact_address_val')}</div>
               </div>
-              <div className="contact-row" style={{ display: 'flex', gap: '1rem' }}>
-                <span className="contact-icon" style={{ color: 'var(--rust)' }}>📧</span>
-                <div className="contact-detail" style={{ fontSize: '0.62rem', color: 'var(--muted)' }}><strong style={{ color: 'var(--stone)', display: 'block', textTransform: 'uppercase' }}>{t('contact_email')}</strong>info@histechshm.com</div>
+              <div className="contact-row">
+                <span className="contact-icon">📧</span>
+                <div className="contact-detail"><strong>{t('contact_email')}</strong>info@histechshm.com</div>
               </div>
             </div>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-             <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}><label style={{ fontSize: '0.55rem', textTransform: 'uppercase', color: 'var(--muted)' }}>{t('form_name')}</label><input type="text" style={{ padding: '0.7rem', background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-main)' }} /></div>
-             <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}><label style={{ fontSize: '0.55rem', textTransform: 'uppercase', color: 'var(--muted)' }}>{t('contact_email')}</label><input type="email" style={{ padding: '0.7rem', background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-main)' }} /></div>
-             <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}><label style={{ fontSize: '0.55rem', textTransform: 'uppercase', color: 'var(--muted)' }}>{t('form_msg')}</label><textarea style={{ padding: '0.7rem', background: 'transparent', border: '1px solid var(--border-color)', color: 'var(--text-main)', minHeight: '100px' }}></textarea></div>
-             <button className="btn-primary" style={{ width: '100%', marginTop: '1rem' }}>{t('btn_send')}</button>
-          </div>
+          
+          {/* FORM ALANI */}
+          <form style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+             <div className="form-group">
+               <label>{t('form_name')}</label>
+               <input type="text" />
+             </div>
+             <div className="form-group">
+               <label>{t('contact_email')}</label>
+               <input type="email" />
+             </div>
+             <div className="form-group">
+               <label>{t('form_msg')}</label>
+               <textarea style={{ minHeight: '100px' }}></textarea>
+             </div>
+             <button type="button" className="btn-primary" style={{ width: '100%', marginTop: '1rem' }}>{t('btn_send')}</button>
+          </form>
         </div>
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: '2rem 4rem', borderTop: '1px solid var(--border-color)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div className="footer-logo" style={{ fontFamily: "'Syne', sans-serif", fontWeight: 700, color: 'var(--stone)' }}>HISTECH-SHM</div>
-        <div className="footer-copy" style={{ fontSize: '0.55rem', color: 'var(--muted)', letterSpacing: '0.15em' }}>{t('footer_copy')}</div>
+      <footer>
+        <div className="footer-logo">HISTECH-SHM</div>
+        <div className="footer-copy">{t('footer_copy')}</div>
       </footer>
     </div>
   );
